@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class JoinCommand implements MusicBotCommand {
@@ -68,7 +69,7 @@ public final class JoinCommand implements MusicBotCommand {
 
     @Nullable
     @Override
-    public Collection<OptionData> getOptions() {
-        return null;
+    public Optional<Collection<OptionData>> getOptions() {
+        return Optional.empty();
     }
 }

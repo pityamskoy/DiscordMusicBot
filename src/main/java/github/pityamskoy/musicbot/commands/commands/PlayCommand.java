@@ -16,13 +16,14 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import static github.pityamskoy.musicbot.commands.commands.JoinCommand.connectToVoiceChannel;
 import static github.pityamskoy.musicbot.commands.commands.JoinCommand.isMemberConnectedToVoiceChannel;
 
-@SuppressWarnings(value = {"ArraysAsListWithZeroOrOneArgument", "DataFlowIssue"})
+@SuppressWarnings(value = {"DataFlowIssue"})
 public final class PlayCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
@@ -79,9 +80,9 @@ public final class PlayCommand implements MusicBotCommand {
 
     @NotNull
     @Override
-    public Collection<OptionData> getOptions() {
+    public Optional<Collection<OptionData>> getOptions() {
         OptionData file = new OptionData(OptionType.ATTACHMENT, "file",
                 "Support only .mp3 / .wav files", true);
-        return Arrays.asList(file);
+        return Optional.of(List.of(file));
     }
 }

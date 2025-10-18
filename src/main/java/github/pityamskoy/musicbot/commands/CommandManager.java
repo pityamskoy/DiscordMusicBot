@@ -1,6 +1,8 @@
 package github.pityamskoy.musicbot.commands;
 
 import github.pityamskoy.musicbot.commands.commands.JoinCommand;
+import github.pityamskoy.musicbot.commands.commands.LeaveCommand;
+import github.pityamskoy.musicbot.commands.commands.LoopCommand;
 import github.pityamskoy.musicbot.commands.commands.PlayCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
@@ -10,10 +12,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public final class CommandManager extends ListenerAdapter {
@@ -28,12 +27,12 @@ public final class CommandManager extends ListenerAdapter {
         for (MusicBotCommand command : COMMAND_LIST) {
             String name = command.getName();
             String description = command.getDescription();
-            Collection<OptionData> options = command.getOptions();
+            Optional<Collection<OptionData>> options = command.getOptions();
 
-            if (options == null) {
+            if (options.isEmpty()) {
                 commands.add(Commands.slash(name, description));
             } else {
-                commands.add(Commands.slash(name, description).addOptions(options));
+                commands.add(Commands.slash(name, description).addOptions(options.get()));
             }
         }
 
