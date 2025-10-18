@@ -10,10 +10,11 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+
 
 public final class CommandManager extends ListenerAdapter {
     private final List<MusicBotCommand> COMMAND_LIST = Arrays.asList(
@@ -22,7 +23,7 @@ public final class CommandManager extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
-        final List<SlashCommandData> commands = new ArrayList<>();
+        final List<SlashCommandData> commands = new LinkedList<>();
 
         for (MusicBotCommand command : COMMAND_LIST) {
             String name = command.getName();

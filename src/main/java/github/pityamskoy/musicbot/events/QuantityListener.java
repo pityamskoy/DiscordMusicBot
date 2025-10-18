@@ -10,14 +10,14 @@ import static github.pityamskoy.musicbot.Utility.preferablySendMessageToBotSpamC
 public final class QuantityListener extends ListenerAdapter {
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
-        String message = event.getUser().getAsMention() + " дары! Лара в войс к пацанам";
+        String message = event.getUser().getAsMention() + " Hello! Let's go to a voice chat";
 
         preferablySendMessageToBotSpamChannel(event.getGuild(), message);
     }
 
     @Override
     public void onGuildMemberRemove(@NotNull GuildMemberRemoveEvent event) {
-        String message = "К сожалению, " + event.getUser().getAsMention() + " вышел с сервера";
+        String message = "Unfortunately, " + event.getUser().getAsMention() + " left from the server";
 
         preferablySendMessageToBotSpamChannel(event.getGuild(), message);
     }

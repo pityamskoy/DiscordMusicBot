@@ -16,10 +16,10 @@ public final class StatusListener extends ListenerAdapter {
         if (event.getNewOnlineStatus().equals(OnlineStatus.ONLINE)) {
             Guild guild = event.getGuild();
             int numberOfOnlineMembers = getNumberOfOnlineMembersInGuild(guild);
-            String declensionOfWordPeople = defineDeclensionOfWordPeople(numberOfOnlineMembers);
 
-            String message = MessageFormat.format("{0} сейчас в сети. Всего {1} {2} онлайн",
-                    event.getUser().getName(), numberOfOnlineMembers, declensionOfWordPeople);
+            String message = MessageFormat.format("{0} has just joined to discord. " +
+                            "Totally {1} people are online",
+                    event.getUser().getName(), numberOfOnlineMembers);
 
             preferablySendMessageToBotSpamChannel(guild, message);
         }

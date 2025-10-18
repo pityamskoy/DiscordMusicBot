@@ -36,6 +36,10 @@ public final class Utility {
         return numberOfOnlineMembers;
     }
 
+    /*
+    * Use defineDeclensionOfWordPeople only for Russian language.
+    * */
+    @Deprecated(forRemoval = false)
     @NotNull
     public static String defineDeclensionOfWordPeople(int numberOfPeople) {
         String declensionOfWordPeople;
