@@ -32,35 +32,36 @@ public final class PlayCommand implements MusicBotCommand {
             AudioManager audioManager = guild.getAudioManager();
             GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
 
-            if (isMemberConnectedToVoiceChannel(event)) {
-                if (audioManager.isConnected()) {
-                    if (audioManager.getConnectedChannel() != guildVoiceState.getChannel()) {
-                        event.reply("You should be in the same channel with me to call this command").setEphemeral(true).queue();
-                        return;
-                    }
-                } else {
-                    connectToVoiceChannel(event);
-                }
-                Message.Attachment file = event.getOption("file").getAsAttachment();
-
-                AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
-                AudioSourceManagers.registerRemoteSources(audioPlayerManager);
-
-                AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
-                AudioPlayer audioPlayer = playerManager.createPlayer();
-                AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
-                guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
-
-                TrackScheduler trackScheduler = new TrackScheduler(audioPlayer);
-                audioPlayer.addListener(trackScheduler);
-
-                AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(audioPlayer);
-                audioPlayerManager.loadItemOrdered(guild, file.getUrl(), audioLoadResultHandlerImpl);
-
-                event.reply(MessageFormat.format("Playing {0}", file.getFileName())).setEphemeral(true).queue();
-            } else {
+            if (!isMemberConnectedToVoiceChannel(event)) {
                 event.reply("You should be connected to a voice channel").setEphemeral(true).queue();
+                return;
             }
+
+            if (audioManager.isConnected()) {
+                if (audioManager.getConnectedChannel() != guildVoiceState.getChannel()) {
+                    event.reply("You should be in the same channel with me to call this command").setEphemeral(true).queue();
+                    return;
+                }
+            } else {
+                connectToVoiceChannel(event);
+            }
+
+            Message.Attachment file = event.getOption("file").getAsAttachment();
+
+            AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
+            AudioSourceManagers.registerRemoteSources(audioPlayerManager);
+
+            AudioPlayer audioPlayer = audioPlayerManager.createPlayer();
+            AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
+            guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
+
+            TrackScheduler trackScheduler = new TrackScheduler(audioPlayer);
+            audioPlayer.addListener(trackScheduler);
+
+            AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(audioPlayer);
+            audioPlayerManager.loadItemOrdered(guild, file.getUrl(), audioLoadResultHandlerImpl);
+
+            event.reply(MessageFormat.format("Playing {0}", file.getFileName())).queue();
         } catch (NullPointerException e) {
             event.reply("I'm sorry. A error has been occurred").setEphemeral(true).queue();
         }

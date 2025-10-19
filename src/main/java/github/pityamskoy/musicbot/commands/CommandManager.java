@@ -17,7 +17,7 @@ import java.util.*;
 
 public final class CommandManager extends ListenerAdapter {
     private final List<MusicBotCommand> COMMAND_LIST = Arrays.asList(
-            new JoinCommand(), new PlayCommand()
+            new JoinCommand(), new PlayCommand(), new LeaveCommand()
     );
 
     @Override

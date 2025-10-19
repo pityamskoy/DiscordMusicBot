@@ -33,21 +33,23 @@ public final class JoinCommand implements MusicBotCommand {
             AudioManager audioManager = event.getGuild().getAudioManager();
             GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
 
-            if (isMemberConnectedToVoiceChannel(event)) {
-                if (!audioManager.isConnected()) {
-                    connectToVoiceChannel(event);
-
-                    String voiceChannelName = event.getMember().getVoiceState().getChannel().getName();
-                    event.reply(String.format("Connection to '%s' is successfully established", voiceChannelName)).queue();
-                } else {
-                    if (audioManager.getConnectedChannel() == guildVoiceState.getChannel()) {
-                        event.reply("I'm already in the channel with you").setEphemeral(true).queue();
-                    } else {
-                        event.reply("I've already been connected to another voice channel").setEphemeral(true).queue();
-                    }
-                }
-            } else {
+            if (!isMemberConnectedToVoiceChannel(event)) {
                 event.reply("You're not connected to a voice channel").setEphemeral(true).queue();
+                return;
+            }
+
+            if (!audioManager.isConnected()) {
+                connectToVoiceChannel(event);
+
+                String voiceChannelName = event.getMember().getVoiceState().getChannel().getName();
+                event.reply(String.format("Connection to '%s' is successfully established", voiceChannelName)).queue();
+                return;
+            }
+
+            if (audioManager.getConnectedChannel() == guildVoiceState.getChannel()) {
+                event.reply("I'm already in the channel with you").setEphemeral(true).queue();
+            } else {
+                event.reply("I've already been connected to another voice channel").setEphemeral(true).queue();
             }
         } catch (NullPointerException e) {
             event.reply("I'm sorry. I can't connect").queue();
