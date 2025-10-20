@@ -1,9 +1,9 @@
 package github.pityamskoy.musicbot.commands.commands;
 
 import github.pityamskoy.musicbot.commands.MusicBotCommand;
+import github.pityamskoy.musicbot.commands.lavaplayer.TrackScheduler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ import static github.pityamskoy.musicbot.Utility.handleIfImpossibleToExecuteMusi
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})
-public final class LeaveCommand implements MusicBotCommand {
+public class SkipCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
@@ -21,27 +21,35 @@ public final class LeaveCommand implements MusicBotCommand {
                 return;
             }
 
-            AudioManager audioManager = event.getGuild().getAudioManager();
-            String connectedAudioChannelName = event.getMember().getVoiceState().getChannel().getName();
+            Long guildId = event.getGuild().getIdLong();
+            TrackScheduler trackScheduler = TrackScheduler.getGuildScheduler(guildId);
 
-            //add off loop and clear queue when leaving
-            audioManager.closeAudioConnection();
-            event.reply(String.format("Connection to '%s' is successfully closed", connectedAudioChannelName)).queue();
+            if (trackScheduler == null) {
+                event.reply("I haven't played music on this server").setEphemeral(true).queue();
+                return;
+            }
+
+            if (trackScheduler.getQueue().isEmpty()) {
+                event.reply("I'm not playing anything").setEphemeral(true).queue();
+                return;
+            }
+
+            trackScheduler.skip();
         } catch (NullPointerException e) {
-            event.reply("I'm sorry. A error has been occurred").setEphemeral(true).queue();
+            event.reply("I'm sorry, a error has been occurred").setEphemeral(true).queue();
         }
     }
 
     @NotNull
     @Override
     public String getName() {
-        return "leave";
+        return "skip";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "Leaves a voice channel it is connected to";
+        return "Skips current track";
     }
 
     @NotNull

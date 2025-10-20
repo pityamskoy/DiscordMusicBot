@@ -1,6 +1,8 @@
 package github.pityamskoy.musicbot.commands.commands;
 
 import github.pityamskoy.musicbot.commands.MusicBotCommand;
+import github.pityamskoy.musicbot.commands.lavaplayer.TrackScheduler;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.managers.AudioManager;
@@ -11,9 +13,8 @@ import java.util.Optional;
 
 import static github.pityamskoy.musicbot.Utility.handleIfImpossibleToExecuteMusicCommand;
 
-
 @SuppressWarnings(value = {"DataFlowIssue"})
-public final class LeaveCommand implements MusicBotCommand {
+public class ClearCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
@@ -21,27 +22,32 @@ public final class LeaveCommand implements MusicBotCommand {
                 return;
             }
 
-            AudioManager audioManager = event.getGuild().getAudioManager();
-            String connectedAudioChannelName = event.getMember().getVoiceState().getChannel().getName();
+            Guild guild = event.getGuild();
+            AudioManager audioManager = guild.getAudioManager();
 
-            //add off loop and clear queue when leaving
-            audioManager.closeAudioConnection();
-            event.reply(String.format("Connection to '%s' is successfully closed", connectedAudioChannelName)).queue();
+            Long guildId = guild.getIdLong();
+            TrackScheduler trackScheduler = TrackScheduler.getGuildScheduler(guildId);
+
+            if (trackScheduler == null) {
+                event.reply("I haven't played music on this server").setEphemeral(true).queue();
+                return;
+            }
         } catch (NullPointerException e) {
-            event.reply("I'm sorry. A error has been occurred").setEphemeral(true).queue();
+            event.reply("I'm sorry, a error has been occurred").setEphemeral(true).queue();
         }
+
     }
 
     @NotNull
     @Override
     public String getName() {
-        return "leave";
+        return "clear";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "Leaves a voice channel it is connected to";
+        return "Clears all songs in the queue";
     }
 
     @NotNull

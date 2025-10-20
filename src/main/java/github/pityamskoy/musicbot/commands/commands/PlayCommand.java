@@ -20,11 +20,26 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import static github.pityamskoy.musicbot.Utility.isMemberConnectedToVoiceChannel;
 import static github.pityamskoy.musicbot.commands.commands.JoinCommand.connectToVoiceChannel;
-import static github.pityamskoy.musicbot.commands.commands.JoinCommand.isMemberConnectedToVoiceChannel;
+
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class PlayCommand implements MusicBotCommand {
+    private void setEnvironment(
+            Guild guild,
+            AudioPlayerManager audioPlayerManager
+    ) {
+        AudioSourceManagers.registerRemoteSources(audioPlayerManager);
+        AudioPlayer audioPlayer = audioPlayerManager.createPlayer();
+        AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
+        guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
+
+        Long guildId = guild.getIdLong();
+        TrackScheduler trackScheduler = new TrackScheduler(audioPlayer, guildId);
+        audioPlayer.addListener(trackScheduler);
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
@@ -46,19 +61,17 @@ public final class PlayCommand implements MusicBotCommand {
                 connectToVoiceChannel(event);
             }
 
-            Message.Attachment file = event.getOption("file").getAsAttachment();
-
+            Long guildId = guild.getIdLong();
+            TrackScheduler trackScheduler = TrackScheduler.getGuildScheduler(guildId);
+            AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(guildId);
             AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
-            AudioSourceManagers.registerRemoteSources(audioPlayerManager);
 
-            AudioPlayer audioPlayer = audioPlayerManager.createPlayer();
-            AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
-            guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
+            if (trackScheduler == null) {
+                this.setEnvironment(guild, audioPlayerManager);
+            }
 
-            TrackScheduler trackScheduler = new TrackScheduler(audioPlayer);
-            audioPlayer.addListener(trackScheduler);
-
-            AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(audioPlayer);
+            Message.Attachment file = event.getOption("file").getAsAttachment();
+            //test in different guilds and try to put as key guildLongId
             audioPlayerManager.loadItemOrdered(guild, file.getUrl(), audioLoadResultHandlerImpl);
 
             event.reply(MessageFormat.format("Playing {0}", file.getFileName())).queue();

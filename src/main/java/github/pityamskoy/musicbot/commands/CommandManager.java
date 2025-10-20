@@ -17,7 +17,8 @@ import java.util.*;
 
 public final class CommandManager extends ListenerAdapter {
     private final List<MusicBotCommand> COMMAND_LIST = Arrays.asList(
-            new JoinCommand(), new PlayCommand(), new LeaveCommand()
+            new JoinCommand(), new PlayCommand(), new LeaveCommand(),
+            new LoopCommand()
     );
 
     @Override
@@ -29,7 +30,7 @@ public final class CommandManager extends ListenerAdapter {
             String description = command.getDescription();
             Optional<Collection<OptionData>> options = command.getOptions();
 
-            if (options.isEmpty()) {
+            if (Objects.requireNonNull(options).isEmpty()) {
                 commands.add(Commands.slash(name, description));
             } else {
                 commands.add(Commands.slash(name, description).addOptions(options.get()));

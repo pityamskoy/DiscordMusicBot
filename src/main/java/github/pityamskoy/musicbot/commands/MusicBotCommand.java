@@ -17,6 +17,6 @@ public interface MusicBotCommand {
     @NotNull
     String getDescription();
 
-    @Nullable
+    @NotNull
     Optional<Collection<OptionData>> getOptions();
 }

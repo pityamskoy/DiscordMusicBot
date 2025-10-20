@@ -7,18 +7,14 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Optional;
 
+import static github.pityamskoy.musicbot.Utility.isMemberConnectedToVoiceChannel;
+
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class JoinCommand implements MusicBotCommand {
-    static boolean isMemberConnectedToVoiceChannel(@NotNull SlashCommandInteractionEvent event) {
-        GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
-        return guildVoiceState.inAudioChannel();
-    }
-
     static void connectToVoiceChannel(@NotNull SlashCommandInteractionEvent event) {
         AudioManager audioManager = event.getGuild().getAudioManager();
         GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
@@ -40,7 +36,7 @@ public final class JoinCommand implements MusicBotCommand {
 
             if (!audioManager.isConnected()) {
                 connectToVoiceChannel(event);
-
+                // fix join when nobody in the channel
                 String voiceChannelName = event.getMember().getVoiceState().getChannel().getName();
                 event.reply(String.format("Connection to '%s' is successfully established", voiceChannelName)).queue();
                 return;
@@ -69,7 +65,7 @@ public final class JoinCommand implements MusicBotCommand {
                 "you have connected to";
     }
 
-    @Nullable
+    @NotNull
     @Override
     public Optional<Collection<OptionData>> getOptions() {
         return Optional.empty();
