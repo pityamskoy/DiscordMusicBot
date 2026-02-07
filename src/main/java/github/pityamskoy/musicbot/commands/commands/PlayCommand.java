@@ -24,20 +24,6 @@ import static github.pityamskoy.musicbot.commands.commands.JoinCommand.connectTo
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class PlayCommand implements MusicBotCommand {
-    private void setEnvironment(
-            Guild guild,
-            AudioPlayerManager audioPlayerManager
-    ) {
-        AudioSourceManagers.registerRemoteSources(audioPlayerManager);
-        AudioPlayer audioPlayer = audioPlayerManager.createPlayer();
-        AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
-        guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
-
-        Long guildId = guild.getIdLong();
-        TrackScheduler trackScheduler = new TrackScheduler(guildId, audioPlayer);
-        audioPlayer.addListener(trackScheduler);
-    }
-
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
@@ -65,13 +51,11 @@ public final class PlayCommand implements MusicBotCommand {
             AudioPlayer audioPlayer = audioPlayerManager.createPlayer();
             AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
             guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
+
             TrackScheduler trackScheduler = new TrackScheduler(guildId, audioPlayer);
             audioPlayer.addListener(trackScheduler);
-            /*if (trackScheduler == null) {
-                this.setEnvironment(guild, audioPlayerManager);
-            }*/
-            AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(guildId);
 
+            AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(guildId);
             AudioTrack audioTrack = null;
             Message.Attachment file = event.getOption("file").getAsAttachment();
             if (file.getFileExtension().equals("mp3")) {

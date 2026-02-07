@@ -13,7 +13,7 @@ import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndRe
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})
-public class SkipCommand implements MusicBotCommand {
+public final class SkipCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
