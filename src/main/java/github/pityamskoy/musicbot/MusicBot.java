@@ -2,8 +2,7 @@ package github.pityamskoy.musicbot;
 
 import javax.security.auth.login.LoginException;
 
-import github.pityamskoy.musicbot.events.QuantityListener;
-import github.pityamskoy.musicbot.events.StatusListener;
+import github.pityamskoy.musicbot.events.GuildListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -42,6 +41,6 @@ public final class MusicBot {
         //Building the shardManager
         final ShardManager shardManager = builder.build();
         shardManager.addEventListener(new CommandManager(),
-                new QuantityListener(), new StatusListener());
+                new GuildListener());
     }
 }

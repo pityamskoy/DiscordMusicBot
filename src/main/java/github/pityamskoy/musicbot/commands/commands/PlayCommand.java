@@ -45,7 +45,7 @@ public final class PlayCommand implements MusicBotCommand {
         try {
             Guild guild = event.getGuild();
             AudioManager audioManager = guild.getAudioManager();
-            GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
+            GuildVoiceState memberVoiceState = event.getMember().getVoiceState();
 
             if (!isMemberConnectedToVoiceChannel(event)) {
                 event.reply("You should be connected to a voice channel").setEphemeral(true).queue();
@@ -53,7 +53,7 @@ public final class PlayCommand implements MusicBotCommand {
             }
 
             if (audioManager.isConnected()) {
-                if (audioManager.getConnectedChannel() != guildVoiceState.getChannel()) {
+                if (audioManager.getConnectedChannel() != memberVoiceState.getChannel()) {
                     event.reply("You should be in the same channel with me to call this command").setEphemeral(true).queue();
                     return;
                 }

@@ -39,9 +39,9 @@ public final class Utility {
         return numberOfOnlineMembers;
     }
 
-    /*
-    * Use defineDeclensionOfWordPeople only for Russian language.
-    * */
+    /**
+     * Use defineDeclensionOfWordPeople only for Russian language.
+     */
     @Deprecated(forRemoval = false)
     @NotNull
     public static String defineDeclensionOfWordPeople(int numberOfPeople) {
@@ -58,8 +58,8 @@ public final class Utility {
 
     @SuppressWarnings(value = {"DataFlowIssue"})
     public static boolean isMemberConnectedToVoiceChannel(@NotNull SlashCommandInteractionEvent event) {
-        GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
-        return guildVoiceState.inAudioChannel();
+        GuildVoiceState memberVoiceState = event.getMember().getVoiceState();
+        return memberVoiceState.inAudioChannel();
     }
 
     @SuppressWarnings(value = {"DataFlowIssue"})
@@ -67,7 +67,7 @@ public final class Utility {
         try {
             Guild guild = event.getGuild();
             AudioManager audioManager = guild.getAudioManager();
-            GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
+            GuildVoiceState memberVoiceState = event.getMember().getVoiceState();
 
             if (!isMemberConnectedToVoiceChannel(event)) {
                 event.reply("You are not connected to any voice channel").setEphemeral(true).queue();
@@ -75,11 +75,11 @@ public final class Utility {
             }
 
             if (!audioManager.isConnected()) {
-                event.reply("I'm connected to any voice channel").setEphemeral(true).queue();
+                event.reply("I've already been connected to a voice channel").setEphemeral(true).queue();
                 return false;
             }
 
-            if (audioManager.getConnectedChannel() != guildVoiceState.getChannel()) {
+            if (audioManager.getConnectedChannel() != memberVoiceState.getChannel()) {
                 event.reply("We are in the different voice channels").setEphemeral(true).queue();
                 return false;
             }

@@ -27,7 +27,7 @@ public final class JoinCommand implements MusicBotCommand {
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
             AudioManager audioManager = event.getGuild().getAudioManager();
-            GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
+            GuildVoiceState memberVoiceState = event.getMember().getVoiceState();
 
             if (!isMemberConnectedToVoiceChannel(event)) {
                 event.reply("You're not connected to a voice channel").setEphemeral(true).queue();
@@ -42,7 +42,7 @@ public final class JoinCommand implements MusicBotCommand {
                 return;
             }
 
-            if (audioManager.getConnectedChannel() == guildVoiceState.getChannel()) {
+            if (audioManager.getConnectedChannel() == memberVoiceState.getChannel()) {
                 event.reply("I'm already in the channel with you").setEphemeral(true).queue();
             } else {
                 event.reply("I've already been connected to another voice channel").setEphemeral(true).queue();
@@ -61,8 +61,7 @@ public final class JoinCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getDescription() {
-        return "The bot connects to a voice channel " +
-                "you have connected to";
+        return "The bot connects to a voice channel you have connected to";
     }
 
     @NotNull
