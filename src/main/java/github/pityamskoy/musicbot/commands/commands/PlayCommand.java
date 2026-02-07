@@ -60,11 +60,16 @@ public final class PlayCommand implements MusicBotCommand {
             }
 
             Long guildId = guild.getIdLong();
-            TrackScheduler trackScheduler = TrackScheduler.getGuildScheduler(guildId);
             AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
-            if (trackScheduler == null) {
+            AudioSourceManagers.registerRemoteSources(audioPlayerManager);
+            AudioPlayer audioPlayer = audioPlayerManager.createPlayer();
+            AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
+            guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
+            TrackScheduler trackScheduler = new TrackScheduler(guildId, audioPlayer);
+            audioPlayer.addListener(trackScheduler);
+            /*if (trackScheduler == null) {
                 this.setEnvironment(guild, audioPlayerManager);
-            }
+            }*/
             AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(guildId);
 
             AudioTrack audioTrack = null;
