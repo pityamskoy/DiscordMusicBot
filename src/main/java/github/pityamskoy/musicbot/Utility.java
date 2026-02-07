@@ -63,7 +63,7 @@ public final class Utility {
     }
 
     @SuppressWarnings(value = {"DataFlowIssue"})
-    public static boolean handleIfImpossibleToExecuteMusicCommand(@NotNull SlashCommandInteractionEvent event) {
+    public static boolean isPossibleToExecuteCommandAndReplyIfFalse(@NotNull SlashCommandInteractionEvent event) {
         try {
             Guild guild = event.getGuild();
             AudioManager audioManager = guild.getAudioManager();

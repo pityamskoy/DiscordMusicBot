@@ -11,14 +11,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.handleIfImpossibleToExecuteMusicCommand;
+import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public class ClearCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
-            if (!handleIfImpossibleToExecuteMusicCommand(event)) {
+            if (!isPossibleToExecuteCommandAndReplyIfFalse(event)) {
                 return;
             }
 
@@ -47,7 +47,7 @@ public class ClearCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getDescription() {
-        return "Clears all songs in the queue";
+        return "Clears all songs in the enqueue";
     }
 
     @NotNull

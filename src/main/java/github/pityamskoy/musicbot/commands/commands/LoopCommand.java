@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 
-import static github.pityamskoy.musicbot.Utility.handleIfImpossibleToExecuteMusicCommand;
+import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})
@@ -21,7 +21,7 @@ public final class LoopCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
-            if (!handleIfImpossibleToExecuteMusicCommand(event)) {
+            if (!isPossibleToExecuteCommandAndReplyIfFalse(event)) {
                 return;
             }
 
@@ -29,7 +29,7 @@ public final class LoopCommand implements MusicBotCommand {
             TrackScheduler trackScheduler = TrackScheduler.getGuildScheduler(guildId);
 
             if (trackScheduler == null) {
-                event.reply("I have not played music on this server").setEphemeral(true).queue();
+                event.reply("I have never played music on this server").setEphemeral(true).queue();
                 return;
             }
             //fix input. Make only two options.
@@ -40,15 +40,15 @@ public final class LoopCommand implements MusicBotCommand {
             boolean isTrackRepeat = trackScheduler.isTrackRepeat();
 
             if (queue.isEmpty()) {
-                event.reply("I cannot loop the queue or a track because I'm not playing anything").setEphemeral(true).queue();
+                event.reply("I cannot loop the enqueue or a track because I'm not playing anything").setEphemeral(true).queue();
                 return;
             }
 
-            if (type.equals("queue")) {
+            if (type.equals("enqueue")) {
                 if (!isQueueRepeat) {
-                    event.reply("Repeating the queue").queue();
+                    event.reply("Repeating the enqueue").queue();
                 } else {
-                    event.reply("Stopped repeating the queue").queue();
+                    event.reply("Stopped repeating the enqueue").queue();
                 }
                 trackScheduler.setQueueRepeat(!isQueueRepeat);
             } else {
@@ -75,7 +75,7 @@ public final class LoopCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getDescription() {
-        return "Repeats current track or queue";
+        return "Repeats current track or enqueue";
     }
 
     @NotNull

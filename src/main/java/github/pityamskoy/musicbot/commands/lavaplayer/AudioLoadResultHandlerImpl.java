@@ -5,6 +5,8 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import javax.naming.SizeLimitExceededException;
+
 @SuppressWarnings(value = {"ClassCanBeRecord"})
 public final class AudioLoadResultHandlerImpl implements AudioLoadResultHandler {
     private final TrackScheduler trackScheduler;
@@ -16,16 +18,15 @@ public final class AudioLoadResultHandlerImpl implements AudioLoadResultHandler 
     @Override
     public void trackLoaded(AudioTrack audioTrack) {
         try {
-            trackScheduler.queue(audioTrack);
-        } catch (RuntimeException e) {
-            //add exception class to transfer error to higher level
-            return;
-        }
+            trackScheduler.enqueue(audioTrack);
+        } catch (SizeLimitExceededException _) {}
     }
 
     @Override
     public void playlistLoaded(AudioPlaylist audioPlaylist) {
-        trackScheduler.queue(audioPlaylist.getTracks().getFirst());
+        try {
+            trackScheduler.enqueue(audioPlaylist.getTracks().getFirst());
+        } catch (SizeLimitExceededException _) {}
     }
 
     @Override

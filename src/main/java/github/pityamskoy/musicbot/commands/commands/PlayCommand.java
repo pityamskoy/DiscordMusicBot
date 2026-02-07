@@ -3,9 +3,7 @@ package github.pityamskoy.musicbot.commands.commands;
 import com.sedmelluq.discord.lavaplayer.player.*;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import github.pityamskoy.musicbot.commands.MusicBotCommand;
-import github.pityamskoy.musicbot.commands.lavaplayer.AudioLoadResultHandlerImpl;
-import github.pityamskoy.musicbot.commands.lavaplayer.AudioPlayerSendHandler;
-import github.pityamskoy.musicbot.commands.lavaplayer.TrackScheduler;
+import github.pityamskoy.musicbot.commands.lavaplayer.*;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Message;
@@ -36,7 +34,7 @@ public final class PlayCommand implements MusicBotCommand {
         guild.getAudioManager().setSendingHandler(audioPlayerSendHandler);
 
         Long guildId = guild.getIdLong();
-        TrackScheduler trackScheduler = new TrackScheduler(audioPlayer, guildId);
+        TrackScheduler trackScheduler = new TrackScheduler(guildId, audioPlayer);
         audioPlayer.addListener(trackScheduler);
     }
 
@@ -63,16 +61,19 @@ public final class PlayCommand implements MusicBotCommand {
 
             Long guildId = guild.getIdLong();
             TrackScheduler trackScheduler = TrackScheduler.getGuildScheduler(guildId);
-            AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(guildId);
             AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
-
             if (trackScheduler == null) {
                 this.setEnvironment(guild, audioPlayerManager);
             }
+            AudioLoadResultHandlerImpl audioLoadResultHandlerImpl = new AudioLoadResultHandlerImpl(guildId);
 
+            AudioTrack audioTrack = null;
             Message.Attachment file = event.getOption("file").getAsAttachment();
+            if (file.getFileExtension().equals("mp3")) {
+                audioTrack = new Mp3AudioTrack(file.getFileName(), file.getUrl());
+            }
             //test in different guilds and try to put as key guildLongId
-            audioPlayerManager.loadItemOrdered(guild, file.getUrl(), audioLoadResultHandlerImpl);
+            audioPlayerManager.loadItemOrdered(guild, audioTrack.getUrl(), audioLoadResultHandlerImpl);
 
             event.reply(MessageFormat.format("Playing {0}", file.getFileName())).queue();
         } catch (NullPointerException e) {

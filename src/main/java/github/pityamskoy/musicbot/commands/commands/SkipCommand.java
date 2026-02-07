@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.handleIfImpossibleToExecuteMusicCommand;
+import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})
@@ -17,7 +17,7 @@ public class SkipCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
-            if (!handleIfImpossibleToExecuteMusicCommand(event)) {
+            if (!isPossibleToExecuteCommandAndReplyIfFalse(event)) {
                 return;
             }
 
