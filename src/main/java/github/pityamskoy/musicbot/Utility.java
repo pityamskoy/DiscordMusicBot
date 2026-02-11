@@ -74,14 +74,11 @@ public final class Utility {
                 return false;
             }
 
-            if (!audioManager.isConnected()) {
-                event.reply("I've already been connected to a voice channel").setEphemeral(true).queue();
-                return false;
-            }
-
-            if (audioManager.getConnectedChannel() != memberVoiceState.getChannel()) {
-                event.reply("We are in the different voice channels").setEphemeral(true).queue();
-                return false;
+            if (audioManager.isConnected()) {
+                if (audioManager.getConnectedChannel() != memberVoiceState.getChannel()) {
+                    event.reply("We are in the different voice channels").setEphemeral(true).queue();
+                    return false;
+                }
             }
 
             return true;

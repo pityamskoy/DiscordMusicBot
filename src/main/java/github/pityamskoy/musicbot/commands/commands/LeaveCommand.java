@@ -21,6 +21,11 @@ public final class LeaveCommand implements MusicBotCommand {
                 return;
             }
 
+            if (!event.getGuild().getAudioManager().isConnected()) {
+                event.reply("I'm not connected to a voice channel").setEphemeral(true).queue();
+                return;
+            }
+
             AudioManager audioManager = event.getGuild().getAudioManager();
             String connectedAudioChannelName = event.getMember().getVoiceState().getChannel().getName();
 
