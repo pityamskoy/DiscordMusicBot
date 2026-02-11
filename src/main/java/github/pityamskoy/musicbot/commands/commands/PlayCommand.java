@@ -21,7 +21,7 @@ import static github.pityamskoy.musicbot.commands.commands.JoinCommand.connectTo
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class PlayCommand implements MusicBotCommand {
     @Override
-    public void execute(@NotNull SlashCommandInteractionEvent event) {
+    public void execute(SlashCommandInteractionEvent event) {
         try {
             if (!isPossibleToExecuteCommandAndReplyIfFalse(event)) {
                 return;
