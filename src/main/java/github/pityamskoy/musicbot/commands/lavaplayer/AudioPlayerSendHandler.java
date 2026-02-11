@@ -1,7 +1,7 @@
 package github.pityamskoy.musicbot.commands.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
+import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 import java.nio.ByteBuffer;
@@ -9,21 +9,22 @@ import java.nio.ByteBuffer;
 
 public final class AudioPlayerSendHandler implements AudioSendHandler {
     private final AudioPlayer audioPlayer;
-    private AudioFrame lastFrame;
+    private final ByteBuffer buffer = ByteBuffer.allocate(1024);
+    private final MutableAudioFrame frame = new MutableAudioFrame();
 
     public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
+        this.frame.setBuffer(this.buffer);
     }
 
     @Override
     public boolean canProvide() {
-        lastFrame = audioPlayer.provide();
-        return lastFrame != null;
+        return this.audioPlayer.provide(this.frame);
     }
 
     @Override
     public ByteBuffer provide20MsAudio() {
-        return ByteBuffer.wrap(lastFrame.getData());
+        return this.buffer.flip();
     }
 
     @Override

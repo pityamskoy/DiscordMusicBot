@@ -5,58 +5,55 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
-import java.util.HashMap;
+import javax.naming.SizeLimitExceededException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public final class TrackScheduler extends AudioEventAdapter {
-    private static HashMap<Long, TrackScheduler> schedulers;
-    private final AudioPlayer player;
     private final BlockingQueue<AudioTrack> queue = new LinkedBlockingQueue<>();
-    private AudioTrack[] queueArray;
-    byte indexOfCurrentTrackInArray = 0;
+    private final AudioPlayer player;
     private boolean isTrackRepeat = false;
     private boolean isQueueRepeat = false;
 
-    public TrackScheduler(AudioPlayer player, Long guildId) {
+    public TrackScheduler(AudioPlayer player) {
         this.player = player;
-        schedulers.put(guildId, this);
     }
 
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        if (this.isQueueRepeat) {
-            player.startTrack(queueArray[indexOfCurrentTrackInArray], false);
-            this.indexOfCurrentTrackInArray++;
-        }
-        if (this.isTrackRepeat) {
-            player.startTrack(track.makeClone(), false);
-        } else {
-            player.startTrack(queue.poll(), false);
+        if (endReason.mayStartNext) {
+            if (isTrackRepeat) {
+                player.startTrack(track.makeClone(), false);
+                return;
+            }
+
+            if (isQueueRepeat) {
+                try {
+                    enqueue(track.makeClone());
+                } catch (SizeLimitExceededException _) {}
+                player.startTrack(queue.poll(), false);
+            } else {
+                player.startTrack(queue.poll(), false);
+            }
         }
     }
 
-    public void queue(AudioTrack track) {
-        boolean isCapableToPut = queue.offer(track);
-        if(!isCapableToPut) {
-            throw new RuntimeException("Failed to add track to queue");
+    public void enqueue(AudioTrack track) throws SizeLimitExceededException {
+        if (!this.player.startTrack(track, true)) {
+            boolean isCapableToPut = this.queue.offer(track);
+
+            if (!isCapableToPut) {
+                throw new SizeLimitExceededException("Failed to add this track to the queue");
+            }
         }
     }
 
     public void skip() {
-        this.queue.poll();
+        this.onTrackEnd(this.player, this.player.getPlayingTrack(), AudioTrackEndReason.FINISHED);
     }
 
     public void clear() {
-        this.queue.clear();
-    }
-
-    public static TrackScheduler getGuildScheduler(Long guildId) {
-        return schedulers.get(guildId);
-    }
-
-    public AudioPlayer getPlayer() {
-        return player;
+        queue.clear();
     }
 
     public BlockingQueue<AudioTrack> getQueue() {
@@ -76,16 +73,6 @@ public final class TrackScheduler extends AudioEventAdapter {
     }
 
     public void setQueueRepeat(boolean repeat) {
-        if (repeat) {
-            byte i = 0;
-            queueArray = new AudioTrack[queue.size()];
-            for (AudioTrack track : queue) {
-                queueArray[i] = track;
-                i++;
-            }
-        } else {
-            this.queueArray = null;
-        }
         isQueueRepeat = repeat;
     }
 }

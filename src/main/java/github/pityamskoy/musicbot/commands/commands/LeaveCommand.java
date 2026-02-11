@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.handleIfImpossibleToExecuteMusicCommand;
+import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})
@@ -17,14 +17,19 @@ public final class LeaveCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
-            if (!handleIfImpossibleToExecuteMusicCommand(event)) {
+            if (!isPossibleToExecuteCommandAndReplyIfFalse(event)) {
+                return;
+            }
+
+            if (!event.getGuild().getAudioManager().isConnected()) {
+                event.reply("I'm not connected to a voice channel").setEphemeral(true).queue();
                 return;
             }
 
             AudioManager audioManager = event.getGuild().getAudioManager();
             String connectedAudioChannelName = event.getMember().getVoiceState().getChannel().getName();
 
-            //add off loop and clear queue when leaving
+            //add off loop and clear enqueue when leaving
             audioManager.closeAudioConnection();
             event.reply(String.format("Connection to '%s' is successfully closed", connectedAudioChannelName)).queue();
         } catch (NullPointerException e) {

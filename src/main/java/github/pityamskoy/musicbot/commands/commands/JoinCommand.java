@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.isMemberConnectedToVoiceChannel;
+import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class JoinCommand implements MusicBotCommand {
@@ -29,23 +29,18 @@ public final class JoinCommand implements MusicBotCommand {
             AudioManager audioManager = event.getGuild().getAudioManager();
             GuildVoiceState memberVoiceState = event.getMember().getVoiceState();
 
-            if (!isMemberConnectedToVoiceChannel(event)) {
-                event.reply("You're not connected to a voice channel").setEphemeral(true).queue();
-                return;
-            }
+            if (isPossibleToExecuteCommandAndReplyIfFalse(event)) {
+                if (audioManager.getConnectedChannel() == memberVoiceState.getChannel()) {
+                    event.reply("I'm already in the channel with you").setEphemeral(true).queue();
+                    return;
+                }
 
-            if (!audioManager.isConnected()) {
-                connectToVoiceChannel(event);
-                // fix join when nobody in the channel
-                String voiceChannelName = event.getMember().getVoiceState().getChannel().getName();
-                event.reply(String.format("Connection to '%s' is successfully established", voiceChannelName)).queue();
-                return;
-            }
-
-            if (audioManager.getConnectedChannel() == memberVoiceState.getChannel()) {
-                event.reply("I'm already in the channel with you").setEphemeral(true).queue();
-            } else {
-                event.reply("I've already been connected to another voice channel").setEphemeral(true).queue();
+                if (!audioManager.isConnected()) {
+                    connectToVoiceChannel(event);
+                    // fix join when nobody in the channel
+                    String voiceChannelName = event.getMember().getVoiceState().getChannel().getName();
+                    event.reply(String.format("Connection to '%s' is successfully established", voiceChannelName)).queue();
+                }
             }
         } catch (NullPointerException e) {
             event.reply("I'm sorry. I can't connect").queue();
