@@ -15,7 +15,7 @@ import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndRe
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class JoinCommand implements MusicBotCommand {
-    static void connectToVoiceChannel(@NotNull SlashCommandInteractionEvent event) {
+    static void connectToVoiceChannel(SlashCommandInteractionEvent event) {
         AudioManager audioManager = event.getGuild().getAudioManager();
         GuildVoiceState guildVoiceState = event.getMember().getVoiceState();
 
@@ -24,7 +24,7 @@ public final class JoinCommand implements MusicBotCommand {
     }
 
     @Override
-    public void execute(@NotNull SlashCommandInteractionEvent event) {
+    public void execute(SlashCommandInteractionEvent event) {
         try {
             AudioManager audioManager = event.getGuild().getAudioManager();
             GuildVoiceState memberVoiceState = event.getMember().getVoiceState();

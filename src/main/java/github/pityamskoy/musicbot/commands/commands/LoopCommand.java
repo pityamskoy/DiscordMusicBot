@@ -4,6 +4,7 @@ import github.pityamskoy.musicbot.commands.MusicBotCommand;
 import github.pityamskoy.musicbot.commands.lavaplayer.PlayerManager;
 import github.pityamskoy.musicbot.commands.lavaplayer.TrackScheduler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +19,7 @@ import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndRe
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class LoopCommand implements MusicBotCommand {
     @Override
-    public void execute(@NotNull SlashCommandInteractionEvent event) {
+    public void execute(SlashCommandInteractionEvent event) {
         try {
             if (!isPossibleToExecuteCommandAndReplyIfFalse(event)) {
                 return;
@@ -72,14 +73,15 @@ public final class LoopCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getDescription() {
-        return "Repeats current track or enqueue";
+        return "Repeats current track or queue";
     }
 
     @NotNull
     @Override
     public Optional<Collection<OptionData>> getOptions() {
         OptionData loopType = new OptionData(OptionType.STRING, "type",
-                "By default, it repeats current track", false);
+                "Choose track/queue", false)
+                .addChoice("track", "track").addChoice("queue", "queue").setAutoComplete(true);
 
         return Optional.of(List.of(loopType));
     }
