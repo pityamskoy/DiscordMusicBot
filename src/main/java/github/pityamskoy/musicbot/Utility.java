@@ -2,8 +2,11 @@ package github.pityamskoy.musicbot;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -36,6 +39,10 @@ public final class Utility {
         return numberOfOnlineMembers;
     }
 
+    /**
+     * Use defineDeclensionOfWordPeople only for Russian language.
+     */
+    @Deprecated(forRemoval = false)
     @NotNull
     public static String defineDeclensionOfWordPeople(int numberOfPeople) {
         String declensionOfWordPeople;
@@ -47,5 +54,37 @@ public final class Utility {
         }
 
         return declensionOfWordPeople;
+    }
+
+    @SuppressWarnings(value = {"DataFlowIssue"})
+    public static boolean isMemberConnectedToVoiceChannel(@NotNull SlashCommandInteractionEvent event) {
+        GuildVoiceState memberVoiceState = event.getMember().getVoiceState();
+        return memberVoiceState.inAudioChannel();
+    }
+
+    @SuppressWarnings(value = {"DataFlowIssue"})
+    public static boolean isPossibleToExecuteCommandAndReplyIfFalse(@NotNull SlashCommandInteractionEvent event) {
+        try {
+            Guild guild = event.getGuild();
+            AudioManager audioManager = guild.getAudioManager();
+            GuildVoiceState memberVoiceState = event.getMember().getVoiceState();
+
+            if (!isMemberConnectedToVoiceChannel(event)) {
+                event.reply("You are not connected to any voice channel").setEphemeral(true).queue();
+                return false;
+            }
+
+            if (audioManager.isConnected()) {
+                if (audioManager.getConnectedChannel() != memberVoiceState.getChannel()) {
+                    event.reply("We are in the different voice channels").setEphemeral(true).queue();
+                    return false;
+                }
+            }
+
+            return true;
+        } catch (NullPointerException e) {
+            event.reply("I'm sorry, a error has been occurred").setEphemeral(true).queue();
+            return false;
+        }
     }
 }

@@ -1,25 +1,19 @@
 package github.pityamskoy.musicbot.commands.commands;
 
-import com.sedmelluq.discord.lavaplayer.player.*;
 import github.pityamskoy.musicbot.commands.MusicBotCommand;
-import github.pityamskoy.musicbot.commands.lavaplayer.*;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
-import static github.pityamskoy.musicbot.commands.commands.JoinCommand.connectToVoiceChannel;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})
-public final class PlayCommand implements MusicBotCommand {
+public final class LeaveCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
@@ -28,13 +22,16 @@ public final class PlayCommand implements MusicBotCommand {
             }
 
             if (!event.getGuild().getAudioManager().isConnected()) {
-                connectToVoiceChannel(event);
+                event.reply("I'm not connected to a voice channel").setEphemeral(true).queue();
+                return;
             }
 
-            Message.Attachment file = event.getOption("file").getAsAttachment();
-            PlayerManager.getInstance().loadAndPlay(file.getUrl(), event.getChannel().asTextChannel());
+            AudioManager audioManager = event.getGuild().getAudioManager();
+            String connectedAudioChannelName = event.getMember().getVoiceState().getChannel().getName();
 
-            event.reply(MessageFormat.format("Playing {0}", file.getFileName())).queue();
+            //add off loop and clear enqueue when leaving
+            audioManager.closeAudioConnection();
+            event.reply(String.format("Connection to '%s' is successfully closed", connectedAudioChannelName)).queue();
         } catch (NullPointerException e) {
             event.reply("I'm sorry. A error has been occurred").setEphemeral(true).queue();
         }
@@ -43,20 +40,18 @@ public final class PlayCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getName() {
-        return "play";
+        return "leave";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "Plays music files";
+        return "Leaves a voice channel it is connected to";
     }
 
     @NotNull
     @Override
     public Optional<Collection<OptionData>> getOptions() {
-        OptionData file = new OptionData(OptionType.ATTACHMENT, "file",
-                "Support only .mp3 / .wav files", true);
-        return Optional.of(List.of(file));
+        return Optional.empty();
     }
 }

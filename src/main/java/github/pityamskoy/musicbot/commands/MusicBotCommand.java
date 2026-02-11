@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface MusicBotCommand {
     void execute(@NotNull SlashCommandInteractionEvent event);
@@ -16,6 +17,5 @@ public interface MusicBotCommand {
     @NotNull
     String getDescription();
 
-    @Nullable
-    Collection<OptionData> getOptions();
+    Optional<Collection<OptionData>> getOptions();
 }

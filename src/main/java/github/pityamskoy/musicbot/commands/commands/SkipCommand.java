@@ -1,25 +1,20 @@
 package github.pityamskoy.musicbot.commands.commands;
 
-import com.sedmelluq.discord.lavaplayer.player.*;
 import github.pityamskoy.musicbot.commands.MusicBotCommand;
-import github.pityamskoy.musicbot.commands.lavaplayer.*;
-import net.dv8tion.jda.api.entities.Message;
+import github.pityamskoy.musicbot.commands.lavaplayer.PlayerManager;
+import github.pityamskoy.musicbot.commands.lavaplayer.TrackScheduler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
-import static github.pityamskoy.musicbot.commands.commands.JoinCommand.connectToVoiceChannel;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})
-public final class PlayCommand implements MusicBotCommand {
+public final class SkipCommand implements MusicBotCommand {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         try {
@@ -28,35 +23,39 @@ public final class PlayCommand implements MusicBotCommand {
             }
 
             if (!event.getGuild().getAudioManager().isConnected()) {
-                connectToVoiceChannel(event);
+                event.reply("I'm not connected to a voice channel").setEphemeral(true).queue();
+                return;
             }
 
-            Message.Attachment file = event.getOption("file").getAsAttachment();
-            PlayerManager.getInstance().loadAndPlay(file.getUrl(), event.getChannel().asTextChannel());
+            TrackScheduler trackScheduler = PlayerManager.getInstance().getGuildMusicManager(event.getGuild()).trackScheduler;
 
-            event.reply(MessageFormat.format("Playing {0}", file.getFileName())).queue();
+            if (PlayerManager.getInstance().getGuildMusicManager(event.getGuild()).audioPlayer.getPlayingTrack() == null) {
+                event.reply("I'm not playing anything").setEphemeral(true).queue();
+                return;
+            }
+
+            trackScheduler.skip();
+            event.reply("Current track has been successfully skipped").queue();
         } catch (NullPointerException e) {
-            event.reply("I'm sorry. A error has been occurred").setEphemeral(true).queue();
+            event.reply("I'm sorry, a error has been occurred").setEphemeral(true).queue();
         }
     }
 
     @NotNull
     @Override
     public String getName() {
-        return "play";
+        return "skip";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "Plays music files";
+        return "Skips current track";
     }
 
     @NotNull
     @Override
     public Optional<Collection<OptionData>> getOptions() {
-        OptionData file = new OptionData(OptionType.ATTACHMENT, "file",
-                "Support only .mp3 / .wav files", true);
-        return Optional.of(List.of(file));
+        return Optional.empty();
     }
 }
