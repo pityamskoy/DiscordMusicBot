@@ -3,7 +3,7 @@ LABEL authors="ASKekishev and LAGuryanov"
 WORKDIR /app
 COPY . .
 
-RUN mvn clean package -Dmaven.artifact.threads=4
+RUN mvn clean package
 
 FROM amazoncorretto:25-headless
 WORKDIR /app
