@@ -11,7 +11,7 @@ build-job:
 
 deploy-job:
   stage: deploy
-  image: docker:24.0.2
+  image: docker:27
   variables:
     DOCKER_HOST: unix:///var/run/docker.sock
   script:
