@@ -9,8 +9,8 @@ deploy-job:
   script:
     - docker stop discord_bot || true
     - docker rm discord_bot || true
-    - docker build --network=host -t discord_music_bot .
-    - docker run -d --name discord_bot --restart unless-stopped -e MUSIC_BOT_TOKEN=$MUSIC_BOT_TOKEN discord_music_bot
+    - docker build --pull --network=host -t discord_music_bot .
+    - docker run -d --name discord_bot --restart unless-stopped -e MUSIC_BOT_TOKEN="$MUSIC_BOT_TOKEN" discord_music_bot
 
   only:
     - main
