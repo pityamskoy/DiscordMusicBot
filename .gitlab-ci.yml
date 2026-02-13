@@ -15,7 +15,9 @@ deploy-job:
   variables:
     DOCKER_HOST: unix:///var/run/docker.sock
   script:
-    - docker info
-    - docker compose up -d
+    - docker stop discord_bot || true
+    - docker rm discord_bot || true
+    - docker build -t discord_music_bot .
+    - docker run -d --name discord_bot --restart unless-stopped discord_music_bot
   only:
     - main
