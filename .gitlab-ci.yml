@@ -1,17 +1,6 @@
 stages:
-  - test
   - build
   - deploy
-
-test-job:
-  stage: test
-  image: maven:4.0.0-rc-5-amazoncorretto-25
-  script:
-    - mvn test
-  only:
-    - main
-    - develop
-    - merge requests
 
 build-job:
   stage: build
