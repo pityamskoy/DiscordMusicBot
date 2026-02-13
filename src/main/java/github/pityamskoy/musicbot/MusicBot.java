@@ -4,7 +4,6 @@ import javax.security.auth.login.LoginException;
 
 import github.pityamskoy.musicbot.events.AutoCompleteListener;
 import github.pityamskoy.musicbot.events.GuildListener;
-import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -27,8 +26,7 @@ public final class MusicBot {
                 CacheFlag.ONLINE_STATUS);
 
         //Creating the builder
-        final Dotenv config = Dotenv.configure().ignoreIfMissing().load();
-        final String TOKEN = config.get("MUSIC_BOT_TOKEN");
+        final String TOKEN = System.getenv("MUSIC_BOT_TOKEN");
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(TOKEN);
 
         //Setting the builder
