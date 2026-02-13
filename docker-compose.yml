@@ -1,0 +1,7 @@
+name: discord_music_bot
+services:
+  discord_music_bot:
+    image: kekishev/discord_music_bot:1.0.0
+    restart: unless-stopped
+    ports:
+      - "2007:2007"
