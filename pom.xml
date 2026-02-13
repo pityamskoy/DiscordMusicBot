@@ -79,4 +79,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>ci-timeout-retry</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.wagon.http.connectionTimeout>60000</maven.wagon.http.connectionTimeout>
+                <maven.wagon.http.readTimeout>60000</maven.wagon.http.readTimeout>
+                <maven.wagon.http.retryHandler.count>3</maven.wagon.http.retryHandler.count>
+            </properties>
+        </profile>
+    </profiles>
 </project>
