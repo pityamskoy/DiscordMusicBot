@@ -3,6 +3,7 @@ stages:
 
 deploy-job:
   stage: deploy
+  image: docker:27
   variables:
     DOCKER_HOST: unix:///var/run/docker.sock
   script:
