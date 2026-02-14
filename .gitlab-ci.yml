@@ -3,9 +3,8 @@ stages:
 
 deploy-job:
   stage: deploy
-  image: docker:27
-  variables:
-    DOCKER_HOST: unix:///var/run/docker.sock
+  tags:
+    - shell
   script:
     - docker info
     - docker stop discord_bot || true
