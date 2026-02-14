@@ -3,7 +3,6 @@ stages:
 
 deploy-job:
   stage: deploy
-  image: docker:27
   variables:
     DOCKER_HOST: unix:///var/run/docker.sock
   script:
@@ -11,7 +10,6 @@ deploy-job:
     - docker rm discord_bot || true
     - docker build --pull --network=host -t discord_music_bot .
     - echo MUSIC_BOT_TOKEN=$MUSIC_BOT_TOKEN
-    - docker run -d --name discord_bot --restart unless-stopped -e MUSIC_BOT_TOKEN=$MUSIC_BOT_TOKEN discord_music_bot
-
+    - docker run -d --name gitlab-runner --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /etc/gitlab-runner:/etc/gitlab-runner gitlab/gitlab-runner:alpine
   only:
     - main
