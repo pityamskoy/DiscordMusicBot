@@ -3,8 +3,7 @@ stages:
 
 deploy-job:
   stage: deploy
-  tags:
-    - shell
+  image: docker:27
   script:
     - docker info
     - docker stop discord_bot || true
