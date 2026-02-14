@@ -14,8 +14,9 @@ import java.util.*;
 
 public final class CommandManager extends ListenerAdapter {
     private final List<MusicBotCommand> COMMAND_LIST = Arrays.asList(
-            new JoinCommand(), new PlayCommand(), new LeaveCommand(),
-            new LoopCommand(), new SkipCommand(), new ClearCommand()
+            new JoinCommand(), new PlayMp3Command(), new PlayCommand(),
+            new LeaveCommand(), new LoopCommand(), new SkipCommand(),
+            new ClearCommand()
     );
 
     @Override

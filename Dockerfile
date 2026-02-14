@@ -5,7 +5,7 @@ COPY . .
 
 RUN mvn clean package
 
-FROM amazoncorretto:25-headless
+FROM eclipse-temurin:25-jre
 WORKDIR /app
 
 COPY --from=build /app/target/musicbot-1.0-SNAPSHOT.jar /app.jar
