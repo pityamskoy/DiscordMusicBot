@@ -1,7 +1,8 @@
 package github.pityamskoy.musicbot.commands.commands;
 
 import github.pityamskoy.musicbot.commands.MusicBotCommand;
-import github.pityamskoy.musicbot.commands.lavaplayer.PlayerManager;
+import github.pityamskoy.musicbot.commands.lavaplayer.*;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 import static github.pityamskoy.musicbot.commands.commands.JoinCommand.connectToVoiceChannel;
+
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class PlayCommand implements MusicBotCommand {
@@ -28,10 +30,10 @@ public final class PlayCommand implements MusicBotCommand {
                 connectToVoiceChannel(event);
             }
 
-            String url = event.getOption("url").getAsString();
-            PlayerManager.getInstance().loadAndPlay(url, event.getChannel().asTextChannel());
+            Message.Attachment file = event.getOption("file").getAsAttachment();
+            PlayerManager.getInstance().loadAndPlay(file.getUrl(), event.getChannel().asTextChannel());
 
-            event.reply(MessageFormat.format("Playing {0}", url)).queue();
+            event.reply(MessageFormat.format("Playing {0}", file.getFileName())).queue();
         } catch (NullPointerException e) {
             event.reply("I'm sorry. A error has been occurred").setEphemeral(true).queue();
         }
@@ -46,13 +48,14 @@ public final class PlayCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getDescription() {
-        return "Plays music from urls";
+        return "Plays music files with .mp3, .wav extensions";
     }
 
+    @NotNull
     @Override
     public Optional<Collection<OptionData>> getOptions() {
-        OptionData file = new OptionData(OptionType.ATTACHMENT, "url",
-                "Supports youtube urls", true);
+        OptionData file = new OptionData(OptionType.ATTACHMENT, "file",
+                "Supports only .mp3 / .wav files", true);
         return Optional.of(List.of(file));
     }
 }

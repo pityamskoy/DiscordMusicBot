@@ -2,8 +2,10 @@ package github.pityamskoy.musicbot;
 
 import javax.security.auth.login.LoginException;
 
+import club.minnced.discord.jdave.interop.JDaveSessionFactory;
 import github.pityamskoy.musicbot.events.AutoCompleteListener;
 import github.pityamskoy.musicbot.events.GuildListener;
+import net.dv8tion.jda.api.audio.AudioModuleConfig;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -36,6 +38,7 @@ public final class MusicBot {
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
         builder.setChunkingFilter(ChunkingFilter.ALL);
         builder.enableCache(CACHE_FLAGS);
+        builder.setAudioModuleConfig(new AudioModuleConfig().withDaveSessionFactory(new JDaveSessionFactory()));
 
         //Building the shardManager
         final ShardManager shardManager = builder.build();
