@@ -43,7 +43,7 @@ public final class ToggleCommand implements MusicBotCommand {
     @Override
     public Optional<Collection<OptionData>> getOptions() {
         OptionData loopType = new OptionData(OptionType.STRING, "function",
-                "toggles a function of the bot", false)
+                "toggles a function of the bot", true)
                 .addChoice("online", "online");
 
         return Optional.of(List.of(loopType));

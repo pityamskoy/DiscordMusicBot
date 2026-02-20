@@ -80,7 +80,7 @@ public final class LoopCommand implements MusicBotCommand {
     @Override
     public Optional<Collection<OptionData>> getOptions() {
         OptionData loopType = new OptionData(OptionType.STRING, "type",
-                "Choose track/queue", false)
+                "Choose track/queue", true)
                 .addChoice("track", "track").addChoice("queue", "queue");
 
         return Optional.of(List.of(loopType));

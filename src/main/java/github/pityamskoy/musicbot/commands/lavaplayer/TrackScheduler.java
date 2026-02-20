@@ -28,10 +28,14 @@ public final class TrackScheduler extends AudioEventAdapter {
             }
 
             if (isQueueRepeat) {
-                try {
-                    enqueue(track.makeClone());
-                } catch (SizeLimitExceededException _) {}
-                player.startTrack(queue.poll(), false);
+                if (!queue.isEmpty()) {
+                    AudioTrack nextTrack = queue.poll();
+                    try {
+                        enqueue(nextTrack);
+                    } catch (SizeLimitExceededException _) {
+                    }
+                    player.startTrack(nextTrack.makeClone(), false);
+                }
             } else {
                 player.startTrack(queue.poll(), false);
             }
