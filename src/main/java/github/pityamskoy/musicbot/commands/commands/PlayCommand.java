@@ -1,6 +1,5 @@
 package github.pityamskoy.musicbot.commands.commands;
 
-import com.sedmelluq.discord.lavaplayer.player.*;
 import github.pityamskoy.musicbot.commands.MusicBotCommand;
 import github.pityamskoy.musicbot.commands.lavaplayer.*;
 import net.dv8tion.jda.api.entities.Message;
@@ -49,14 +48,14 @@ public final class PlayCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getDescription() {
-        return "Plays music files";
+        return "Plays music files with .mp3, .wav extensions";
     }
 
     @NotNull
     @Override
     public Optional<Collection<OptionData>> getOptions() {
         OptionData file = new OptionData(OptionType.ATTACHMENT, "file",
-                "Support only .mp3 / .wav files", true);
+                "Supports only .mp3 / .wav files", true);
         return Optional.of(List.of(file));
     }
 }

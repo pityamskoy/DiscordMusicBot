@@ -1,11 +1,11 @@
-FROM maven:4.0.0-rc-5-amazoncorretto-25 AS build
+FROM maven:3.9.12-amazoncorretto-25 AS build
 LABEL authors="ASKekishev and LAGuryanov"
 WORKDIR /app
 COPY . .
 
 RUN mvn clean package
 
-FROM amazoncorretto:25-headless
+FROM eclipse-temurin:25-jre
 WORKDIR /app
 
 COPY --from=build /app/target/musicbot-1.0-SNAPSHOT.jar /app.jar
