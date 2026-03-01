@@ -19,12 +19,12 @@ public final class ToggleCommand implements MusicBotCommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         if (event.getOption("function").getAsString().equals("online")) {
-            if (!event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+            if (!event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
                 event.reply("You don't have permission to use this command!").setEphemeral(true).queue();
                 return;
             }
 
-            setIsOnUserUpdateOnlineStatusWork(getIsOnUserUpdateOnlineStatusWork());
+            setIsOnUserUpdateOnlineStatusWork(!getIsOnUserUpdateOnlineStatusWork());
         }
     }
 
