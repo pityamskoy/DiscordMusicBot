@@ -25,6 +25,12 @@ public final class ToggleCommand implements MusicBotCommand {
             }
 
             setIsOnUserUpdateOnlineStatusWork(!getIsOnUserUpdateOnlineStatusWork());
+
+            if (getIsOnUserUpdateOnlineStatusWork()) {
+                event.reply("Notifications of member's becoming online is set to on").queue();
+            } else {
+                event.reply("Notifications of member's becoming online is set to off").queue();
+            }
         }
     }
 
