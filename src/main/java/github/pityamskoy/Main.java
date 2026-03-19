@@ -7,7 +7,7 @@ import javax.security.auth.login.LoginException;
 
 @SuppressWarnings("unused")
 public final class Main {
-    public static void main(String[] arguments) {
+    static void main(String[] arguments) {
         try {
             final MusicBot musicBot = new MusicBot();
         } catch (LoginException e) {
