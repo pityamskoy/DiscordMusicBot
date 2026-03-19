@@ -1,0 +1,10 @@
+name: discord_music_bot
+
+services:
+  backend:
+    image: kekishev/discord_music_bot:latest
+    restart: unless-stopped
+    ports:
+      - "2007:2007"
+    environment:
+      DISCORD_MUSIC_BOT_TOKEN: ${DISCORD_MUSIC_BOT_TOKEN}

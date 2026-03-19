@@ -1,5 +1,5 @@
-FROM maven:3.9.12-amazoncorretto-25 AS build
-LABEL authors="ASKekishev and LAGuryanov"
+FROM maven:3.9.13-eclipse-temurin-25 AS build
+LABEL authors="ASKekishev"
 WORKDIR /app
 COPY . .
 
@@ -8,7 +8,7 @@ RUN mvn clean package
 FROM eclipse-temurin:25-jre
 WORKDIR /app
 
-COPY --from=build /app/target/musicbot-1.0-SNAPSHOT.jar /app.jar
+COPY --from=build /app/target/MusicBot-1.0.0.jar /app.jar
 
 EXPOSE 2007
 

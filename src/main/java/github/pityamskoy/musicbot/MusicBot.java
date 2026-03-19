@@ -26,11 +26,11 @@ public final class MusicBot {
         final List<CacheFlag> CACHE_FLAGS = Arrays.asList(
                 CacheFlag.ONLINE_STATUS);
 
-        //Creating the builder
-        final String TOKEN = System.getenv("MUSIC_BOT_TOKEN");
+        // Creating the builder
+        final String TOKEN = System.getenv("DISCORD_MUSIC_BOT_TOKEN");
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(TOKEN);
 
-        //Setting the builder
+        // Setting the builder
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("music | /help"));
         builder.enableIntents(GATEWAY_INTENTS);
@@ -39,7 +39,7 @@ public final class MusicBot {
         builder.enableCache(CACHE_FLAGS);
         builder.setAudioModuleConfig(new AudioModuleConfig().withDaveSessionFactory(new JDaveSessionFactory()));
 
-        //Building the shardManager
+        // Building the shardManager
         final ShardManager shardManager = builder.build();
         shardManager.addEventListener(new CommandManager(),
                 new GuildListener());
