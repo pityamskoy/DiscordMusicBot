@@ -14,6 +14,7 @@ import static github.pityamskoy.musicbot.Utility.getNumberOfOnlineMembersInGuild
 import static github.pityamskoy.musicbot.Utility.preferablySendMessageToBotSpamChannel;
 
 public final class GuildListener extends ListenerAdapter {
+    // fix needed. It is crucial to switch to db
     private static boolean isOnUserUpdateOnlineStatusWork = true;
 
     public static void setIsOnUserUpdateOnlineStatusWork(boolean isOnUserUpdateOnlineStatusWork) {
@@ -33,7 +34,7 @@ public final class GuildListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
-        String message = "Unfortunately, " + event.getUser().getAsMention() + " left from the server";
+        String message = "Unfortunately, " + event.getUser().getAsTag() + " left from the server";
 
         preferablySendMessageToBotSpamChannel(event.getGuild(), message);
     }
