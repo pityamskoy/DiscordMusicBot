@@ -3,6 +3,7 @@ package github.pityamskoy.musicbot;
 import javax.security.auth.login.LoginException;
 
 import club.minnced.discord.jdave.interop.JDaveSessionFactory;
+import github.pityamskoy.musicbot.events.AdminListener;
 import github.pityamskoy.musicbot.events.GuildListener;
 import net.dv8tion.jda.api.audio.AudioModuleConfig;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -41,7 +42,11 @@ public final class MusicBot {
 
         // Building the shardManager
         final ShardManager shardManager = builder.build();
-        shardManager.addEventListener(new CommandManager(),
-                new GuildListener());
+
+        shardManager.addEventListener(
+                new CommandManager(),
+                new GuildListener(),
+                new AdminListener()
+        );
     }
 }
