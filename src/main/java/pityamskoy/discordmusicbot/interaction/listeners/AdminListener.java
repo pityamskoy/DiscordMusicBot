@@ -1,4 +1,4 @@
-package github.pityamskoy.musicbot.events;
+package pityamskoy.discordmusicbot.interaction.listeners;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static github.pityamskoy.musicbot.Utility.preferablySendMessageToBotSpamChannel;
+import static pityamskoy.discordmusicbot.Utility.preferablySendMessageToBotSpamChannel;
 
 /**
  * <p>

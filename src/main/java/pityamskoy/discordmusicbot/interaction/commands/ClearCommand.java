@@ -1,8 +1,7 @@
-package github.pityamskoy.musicbot.commands.commands;
+package pityamskoy.discordmusicbot.interaction.commands;
 
-import github.pityamskoy.musicbot.commands.MusicBotCommand;
-import github.pityamskoy.musicbot.commands.lavaplayer.PlayerManager;
-import github.pityamskoy.musicbot.commands.lavaplayer.TrackScheduler;
+import pityamskoy.discordmusicbot.interaction.lavaplayer.PlayerManager;
+import pityamskoy.discordmusicbot.interaction.lavaplayer.TrackScheduler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -10,11 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
-
+import static pityamskoy.discordmusicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
-public final class SkipCommand implements MusicBotCommand {
+public final class ClearCommand implements MusicBotCommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         try {
@@ -28,14 +26,9 @@ public final class SkipCommand implements MusicBotCommand {
             }
 
             TrackScheduler trackScheduler = PlayerManager.getInstance().getGuildMusicManager(event.getGuild()).trackScheduler;
+            trackScheduler.clear();
 
-            if (PlayerManager.getInstance().getGuildMusicManager(event.getGuild()).audioPlayer.getPlayingTrack() == null) {
-                event.reply("I'm not playing anything").setEphemeral(true).queue();
-                return;
-            }
-
-            trackScheduler.skip();
-            event.reply("Current track has been successfully skipped").queue();
+            event.reply("The queue has been successfully cleared.").queue();
         } catch (NullPointerException e) {
             event.reply("I'm sorry, a error has been occurred").setEphemeral(true).queue();
         }
@@ -44,13 +37,13 @@ public final class SkipCommand implements MusicBotCommand {
     @NotNull
     @Override
     public String getName() {
-        return "skip";
+        return "clear";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "Skips current track";
+        return "Clears all songs in the enqueue";
     }
 
     @NotNull

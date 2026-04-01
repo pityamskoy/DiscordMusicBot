@@ -1,6 +1,5 @@
-package github.pityamskoy.musicbot.commands.commands;
+package pityamskoy.discordmusicbot.interaction.commands;
 
-import github.pityamskoy.musicbot.commands.MusicBotCommand;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static pityamskoy.discordmusicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class JoinCommand implements MusicBotCommand {

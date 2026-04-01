@@ -1,6 +1,5 @@
-package github.pityamskoy.musicbot.commands.commands;
+package pityamskoy.discordmusicbot.interaction.commands;
 
-import github.pityamskoy.musicbot.commands.MusicBotCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -11,8 +10,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.events.GuildListener.getIsOnUserUpdateOnlineStatusWork;
-import static github.pityamskoy.musicbot.events.GuildListener.setIsOnUserUpdateOnlineStatusWork;
+import static pityamskoy.discordmusicbot.interaction.listeners.GuildListener.getIsOnUserUpdateOnlineStatusWork;
+import static pityamskoy.discordmusicbot.interaction.listeners.GuildListener.setIsOnUserUpdateOnlineStatusWork;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class ToggleCommand implements MusicBotCommand {

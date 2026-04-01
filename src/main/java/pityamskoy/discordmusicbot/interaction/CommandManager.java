@@ -1,6 +1,5 @@
-package github.pityamskoy.musicbot.commands;
+package pityamskoy.discordmusicbot.interaction;
 
-import github.pityamskoy.musicbot.commands.commands.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -8,14 +7,19 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.jetbrains.annotations.NotNull;
+import pityamskoy.discordmusicbot.interaction.commands.MusicBotCommand;
+import pityamskoy.discordmusicbot.interaction.commands.*;
 
 import java.util.*;
 
-
 public final class CommandManager extends ListenerAdapter {
     private final List<MusicBotCommand> COMMAND_LIST = Arrays.asList(
-            new JoinCommand(), new PlayCommand(), new LeaveCommand(),
-            new LoopCommand(), new SkipCommand(), new ClearCommand(),
+            new JoinCommand(),
+            new PlayCommand(),
+            new LeaveCommand(),
+            new LoopCommand(),
+            new SkipCommand(),
+            new ClearCommand(),
             new ToggleCommand()
     );
 

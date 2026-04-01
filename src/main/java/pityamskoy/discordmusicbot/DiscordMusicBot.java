@@ -1,10 +1,10 @@
-package github.pityamskoy.musicbot;
+package pityamskoy.discordmusicbot;
 
 import javax.security.auth.login.LoginException;
 
 import club.minnced.discord.jdave.interop.JDaveSessionFactory;
-import github.pityamskoy.musicbot.events.AdminListener;
-import github.pityamskoy.musicbot.events.GuildListener;
+import pityamskoy.discordmusicbot.interaction.listeners.AdminListener;
+import pityamskoy.discordmusicbot.interaction.listeners.GuildListener;
 import net.dv8tion.jda.api.audio.AudioModuleConfig;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import github.pityamskoy.musicbot.commands.CommandManager;
+import pityamskoy.discordmusicbot.interaction.CommandManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings(value ={"ArraysAsListWithZeroOrOneArgument"})
-public final class MusicBot {
-    public MusicBot() throws LoginException {
+public final class DiscordMusicBot {
+    public DiscordMusicBot() throws LoginException {
         final List<GatewayIntent> GATEWAY_INTENTS = Arrays.asList(
                 GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES);
         final List<CacheFlag> CACHE_FLAGS = Arrays.asList(

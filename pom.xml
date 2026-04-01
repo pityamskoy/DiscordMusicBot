@@ -56,7 +56,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>github.pityamskoy.Main</mainClass>
+                                    <mainClass>pityamskoy.Main</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -71,7 +71,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>github.pityamskoy.Main</mainClass>
+                            <mainClass>pityamskoy.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

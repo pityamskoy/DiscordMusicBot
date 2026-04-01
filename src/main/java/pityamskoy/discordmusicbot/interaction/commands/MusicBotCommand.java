@@ -1,4 +1,4 @@
-package github.pityamskoy.musicbot.commands;
+package pityamskoy.discordmusicbot.interaction.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;

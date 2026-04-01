@@ -1,4 +1,4 @@
-package github.pityamskoy.musicbot.commands.lavaplayer;
+package pityamskoy.discordmusicbot.interaction.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
