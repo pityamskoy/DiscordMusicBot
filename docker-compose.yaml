@@ -8,3 +8,4 @@ services:
       - "2007:2007"
     environment:
       DISCORD_MUSIC_BOT_TOKEN: ${DISCORD_MUSIC_BOT_TOKEN}
+      DISCORD_ADMIN_ID: ${DISCORD_ADMIN_ID}

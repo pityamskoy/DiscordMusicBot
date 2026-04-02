@@ -26,21 +26,21 @@ public final class AdminListener extends ListenerAdapter {
      * @param message any text message to send.
      */
     private void sendMessageToAllGuilds(@NotNull JDA jda, @NotNull String message) {
-        jda.getGuilds().forEach(guild -> {preferablySendMessageToBotSpamChannel(guild, message);});
+        jda.getGuilds().forEach(guild -> preferablySendMessageToBotSpamChannel(guild, message));
     }
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        log.info(event.getAuthor().getJDA().toString());
-        if (!event.getAuthor().getJDA().toString().equals(System.getenv("ADMIN_JDA"))) {
+        log.info(event.getAuthor().getId());
+        if (!event.getAuthor().getId().equals(System.getenv("DISCORD_ADMIN_ID"))) {
             return;
         }
 
         String message = event.getMessage().getContentRaw();
-        if (!message.startsWith("!announce")) {
+        if (!message.startsWith("!announce ")) {
             return;
         }
 
-        sendMessageToAllGuilds(event.getJDA(), message);
+        sendMessageToAllGuilds(event.getJDA(), message.substring("!announce ".length()));
     }
 }
