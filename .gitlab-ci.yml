@@ -56,6 +56,7 @@ deploy-job:
     - ssh -i ~/.ssh/id_ed25519 root@$SSH_REMOTE_HOST "
       cd /root/projects/discord-music-bot &&
       export DISCORD_MUSIC_BOT_TOKEN=$DISCORD_MUSIC_BOT_TOKEN &&
+      export DISCORD_ADMIN_ID=$DISCORD_ADMIN_ID &&
       docker stop discord-music-bot-backend-1 || true &&
       docker rm discord-music-bot-backend-1 || true &&
       docker image rm $DOCKERHUB_USER/$DOCKERHUB_REPOSITORY_NAME:latest || true &&
