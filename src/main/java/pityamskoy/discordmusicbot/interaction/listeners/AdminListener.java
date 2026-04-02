@@ -31,15 +31,16 @@ public final class AdminListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        log.info(event.getAuthor().getId());
-        if (!event.getAuthor().getId().equals(System.getenv("DISCORD_ADMIN_ID"))) {
-            return;
-        }
-
         String message = event.getMessage().getContentRaw();
         if (!message.startsWith("!announce ")) {
             return;
         }
+
+        if (!event.getAuthor().getId().equals(System.getenv("DISCORD_ADMIN_ID"))) {
+            return;
+        }
+
+        log.info("Announce message: {}", message.substring("!announce ".length()));
 
         sendMessageToAllGuilds(event.getJDA(), message.substring("!announce ".length()));
     }
