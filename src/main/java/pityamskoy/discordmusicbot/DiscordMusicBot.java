@@ -23,9 +23,13 @@ import java.util.List;
 public final class DiscordMusicBot {
     public DiscordMusicBot() throws LoginException {
         final List<GatewayIntent> GATEWAY_INTENTS = Arrays.asList(
-                GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES);
+                GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_PRESENCES,
+                GatewayIntent.MESSAGE_CONTENT
+        );
         final List<CacheFlag> CACHE_FLAGS = Arrays.asList(
-                CacheFlag.ONLINE_STATUS);
+                CacheFlag.ONLINE_STATUS
+        );
 
         // Creating the builder
         final String TOKEN = System.getenv("DISCORD_MUSIC_BOT_TOKEN");
