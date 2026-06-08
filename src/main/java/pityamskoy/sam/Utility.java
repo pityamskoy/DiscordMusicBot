@@ -1,4 +1,4 @@
-package pityamskoy.discordmusicbot;
+package pityamskoy.sam;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;

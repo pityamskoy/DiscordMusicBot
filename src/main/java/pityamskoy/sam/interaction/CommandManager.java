@@ -1,4 +1,4 @@
-package pityamskoy.discordmusicbot.interaction;
+package pityamskoy.sam.interaction;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
@@ -7,8 +7,8 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.jetbrains.annotations.NotNull;
-import pityamskoy.discordmusicbot.interaction.commands.MusicBotCommand;
-import pityamskoy.discordmusicbot.interaction.commands.*;
+import pityamskoy.sam.interaction.commands.MusicBotCommand;
+import pityamskoy.sam.interaction.commands.*;
 
 import java.util.*;
 

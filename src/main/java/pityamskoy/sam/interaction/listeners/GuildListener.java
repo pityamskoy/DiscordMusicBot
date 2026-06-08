@@ -1,4 +1,4 @@
-package pityamskoy.discordmusicbot.interaction.listeners;
+package pityamskoy.sam.interaction.listeners;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 
-import static pityamskoy.discordmusicbot.Utility.getNumberOfOnlineMembersInGuild;
-import static pityamskoy.discordmusicbot.Utility.preferablySendMessageToBotSpamChannel;
+import static pityamskoy.sam.Utility.getNumberOfOnlineMembersInGuild;
+import static pityamskoy.sam.Utility.preferablySendMessageToBotSpamChannel;
 
 public final class GuildListener extends ListenerAdapter {
     // fix needed. It is crucial to switch to db

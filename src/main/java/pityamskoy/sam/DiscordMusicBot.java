@@ -1,10 +1,10 @@
-package pityamskoy.discordmusicbot;
+package pityamskoy.sam;
 
 import javax.security.auth.login.LoginException;
 
 import club.minnced.discord.jdave.interop.JDaveSessionFactory;
-import pityamskoy.discordmusicbot.interaction.listeners.AdminListener;
-import pityamskoy.discordmusicbot.interaction.listeners.GuildListener;
+import pityamskoy.sam.interaction.listeners.AdminListener;
+import pityamskoy.sam.interaction.listeners.GuildListener;
 import net.dv8tion.jda.api.audio.AudioModuleConfig;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import pityamskoy.discordmusicbot.interaction.CommandManager;
+import pityamskoy.sam.interaction.CommandManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 

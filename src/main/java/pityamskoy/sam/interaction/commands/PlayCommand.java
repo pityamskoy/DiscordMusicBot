@@ -1,19 +1,19 @@
-package pityamskoy.discordmusicbot.interaction.commands;
+package pityamskoy.sam.interaction.commands;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import pityamskoy.discordmusicbot.interaction.lavaplayer.PlayerManager;
+import pityamskoy.sam.interaction.lavaplayer.PlayerManager;
 
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import static pityamskoy.discordmusicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
-import static pityamskoy.discordmusicbot.interaction.commands.JoinCommand.connectToVoiceChannel;
+import static pityamskoy.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static pityamskoy.sam.interaction.commands.JoinCommand.connectToVoiceChannel;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})

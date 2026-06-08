@@ -1,7 +1,7 @@
-package pityamskoy.discordmusicbot.interaction.commands;
+package pityamskoy.sam.interaction.commands;
 
-import pityamskoy.discordmusicbot.interaction.lavaplayer.PlayerManager;
-import pityamskoy.discordmusicbot.interaction.lavaplayer.TrackScheduler;
+import pityamskoy.sam.interaction.lavaplayer.PlayerManager;
+import pityamskoy.sam.interaction.lavaplayer.TrackScheduler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static pityamskoy.discordmusicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static pityamskoy.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class ClearCommand implements MusicBotCommand {

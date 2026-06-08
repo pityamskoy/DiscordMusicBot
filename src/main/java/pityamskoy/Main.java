@@ -1,6 +1,6 @@
 package pityamskoy;
 
-import pityamskoy.discordmusicbot.DiscordMusicBot;
+import pityamskoy.sam.DiscordMusicBot;
 
 import javax.security.auth.login.LoginException;
 
