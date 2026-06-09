@@ -1,4 +1,4 @@
-package pityamskoy.sam.interaction.listeners;
+package group.sam.interaction.listeners;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static pityamskoy.sam.Utility.preferablySendMessageToBotSpamChannel;
+import static group.sam.Utility.preferablySendMessageToBotSpamChannel;
 
 /**
  * <p>

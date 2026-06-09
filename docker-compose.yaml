@@ -1,8 +1,8 @@
-name: discord-music-bot
+name: sam
 
 services:
   backend:
-    image: kekishev/discord-music-bot:latest
+    image: kekishev/sam:latest
     restart: unless-stopped
     ports:
       - "2007:2007"

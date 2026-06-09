@@ -5,7 +5,7 @@ stages:
 
 variables:
   DOCKERHUB_USER: kekishev
-  DOCKERHUB_REPOSITORY_NAME: discord-music-bot
+  DOCKERHUB_REPOSITORY_NAME: sam
 
 test-job:
   stage: test

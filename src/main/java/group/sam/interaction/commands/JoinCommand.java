@@ -1,4 +1,4 @@
-package pityamskoy.sam.interaction.commands;
+package group.sam.interaction.commands;
 
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static pityamskoy.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static group.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class JoinCommand implements MusicBotCommand {

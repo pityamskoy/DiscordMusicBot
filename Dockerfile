@@ -8,7 +8,7 @@ RUN mvn clean package
 FROM eclipse-temurin:25-jre
 WORKDIR /app
 
-COPY --from=build /app/target/discord-music-bot-1.0.0.jar /app.jar
+COPY --from=build /app/target/sam-1.0.0.jar /app.jar
 
 EXPOSE 2007
 

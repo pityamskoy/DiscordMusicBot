@@ -1,7 +1,7 @@
-package pityamskoy.sam.interaction.commands;
+package group.sam.interaction.commands;
 
-import pityamskoy.sam.interaction.lavaplayer.PlayerManager;
-import pityamskoy.sam.interaction.lavaplayer.TrackScheduler;
+import group.sam.interaction.lavaplayer.PlayerManager;
+import group.sam.interaction.lavaplayer.TrackScheduler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static pityamskoy.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static group.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})

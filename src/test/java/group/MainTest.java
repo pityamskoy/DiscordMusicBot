@@ -1,4 +1,4 @@
-package pityamskoy;
+package group;
 
 
 public class MainTest {

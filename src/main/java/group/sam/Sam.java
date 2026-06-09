@@ -1,10 +1,10 @@
-package pityamskoy.sam;
+package group.sam;
 
 import javax.security.auth.login.LoginException;
 
 import club.minnced.discord.jdave.interop.JDaveSessionFactory;
-import pityamskoy.sam.interaction.listeners.AdminListener;
-import pityamskoy.sam.interaction.listeners.GuildListener;
+import group.sam.interaction.listeners.AdminListener;
+import group.sam.interaction.listeners.GuildListener;
 import net.dv8tion.jda.api.audio.AudioModuleConfig;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import pityamskoy.sam.interaction.CommandManager;
+import group.sam.interaction.CommandManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings(value ={"ArraysAsListWithZeroOrOneArgument"})
-public final class DiscordMusicBot {
-    public DiscordMusicBot() throws LoginException {
+public final class Sam {
+    public Sam() throws LoginException {
         final List<GatewayIntent> GATEWAY_INTENTS = Arrays.asList(
                 GatewayIntent.GUILD_MEMBERS,
                 GatewayIntent.GUILD_PRESENCES,

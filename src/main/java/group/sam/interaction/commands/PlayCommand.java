@@ -1,19 +1,19 @@
-package pityamskoy.sam.interaction.commands;
+package group.sam.interaction.commands;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
-import pityamskoy.sam.interaction.lavaplayer.PlayerManager;
+import group.sam.interaction.lavaplayer.PlayerManager;
 
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import static pityamskoy.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
-import static pityamskoy.sam.interaction.commands.JoinCommand.connectToVoiceChannel;
+import static group.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static group.sam.interaction.commands.JoinCommand.connectToVoiceChannel;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})

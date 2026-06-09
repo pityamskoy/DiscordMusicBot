@@ -1,4 +1,4 @@
-package pityamskoy.sam.interaction.commands;
+package group.sam.interaction.commands;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import static pityamskoy.sam.interaction.listeners.GuildListener.getIsOnUserUpdateOnlineStatusWork;
-import static pityamskoy.sam.interaction.listeners.GuildListener.setIsOnUserUpdateOnlineStatusWork;
+import static group.sam.interaction.listeners.GuildListener.getIsOnUserUpdateOnlineStatusWork;
+import static group.sam.interaction.listeners.GuildListener.setIsOnUserUpdateOnlineStatusWork;
 
 @SuppressWarnings(value = {"DataFlowIssue"})
 public final class ToggleCommand implements MusicBotCommand {

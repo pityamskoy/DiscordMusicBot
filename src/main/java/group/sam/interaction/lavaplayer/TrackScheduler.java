@@ -1,4 +1,4 @@
-package pityamskoy.sam.interaction.lavaplayer;
+package group.sam.interaction.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
