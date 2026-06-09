@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>Kekishev</groupId>
-    <artifactId>MusicBot</artifactId>
+    <artifactId>sam</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -29,6 +29,12 @@
             <groupId>club.minnced</groupId>
             <artifactId>jdave-native-linux-x86-64</artifactId>
             <version>0.1.6</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.32</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -56,7 +62,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>github.pityamskoy.Main</mainClass>
+                                    <mainClass>group.Main</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -71,7 +77,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>github.pityamskoy.Main</mainClass>
+                            <mainClass>group.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

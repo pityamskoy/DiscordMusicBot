@@ -1,10 +1,8 @@
-package github.pityamskoy.musicbot.commands.commands;
+package group.sam.interaction.commands;
 
-import github.pityamskoy.musicbot.commands.MusicBotCommand;
-import github.pityamskoy.musicbot.commands.lavaplayer.PlayerManager;
-import github.pityamskoy.musicbot.commands.lavaplayer.TrackScheduler;
+import group.sam.interaction.lavaplayer.PlayerManager;
+import group.sam.interaction.lavaplayer.TrackScheduler;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static group.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})

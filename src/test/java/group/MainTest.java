@@ -1,4 +1,4 @@
-package github.pityamskoy;
+package group;
 
 
 public class MainTest {

@@ -1,6 +1,5 @@
-package github.pityamskoy.musicbot.commands.commands;
+package group.sam.interaction.commands;
 
-import github.pityamskoy.musicbot.commands.MusicBotCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.managers.AudioManager;
@@ -9,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
-import static github.pityamskoy.musicbot.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
+import static group.sam.Utility.isPossibleToExecuteCommandAndReplyIfFalse;
 
 
 @SuppressWarnings(value = {"DataFlowIssue"})

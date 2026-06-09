@@ -1,6 +1,6 @@
-package github.pityamskoy;
+package group;
 
-import github.pityamskoy.musicbot.MusicBot;
+import group.sam.Sam;
 
 import javax.security.auth.login.LoginException;
 
@@ -9,7 +9,7 @@ import javax.security.auth.login.LoginException;
 public final class Main {
     static void main(String[] arguments) {
         try {
-            final MusicBot musicBot = new MusicBot();
+            final Sam sam = new Sam();
         } catch (LoginException e) {
             System.out.println("ERROR: Provided bot token is invalid!");
         }

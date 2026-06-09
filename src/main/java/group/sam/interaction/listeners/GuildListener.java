@@ -1,4 +1,4 @@
-package github.pityamskoy.musicbot.events;
+package group.sam.interaction.listeners;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
@@ -10,10 +10,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 
-import static github.pityamskoy.musicbot.Utility.getNumberOfOnlineMembersInGuild;
-import static github.pityamskoy.musicbot.Utility.preferablySendMessageToBotSpamChannel;
+import static group.sam.Utility.getNumberOfOnlineMembersInGuild;
+import static group.sam.Utility.preferablySendMessageToBotSpamChannel;
 
 public final class GuildListener extends ListenerAdapter {
+    // fix needed. It is crucial to switch to db
     private static boolean isOnUserUpdateOnlineStatusWork = true;
 
     public static void setIsOnUserUpdateOnlineStatusWork(boolean isOnUserUpdateOnlineStatusWork) {
@@ -33,7 +34,7 @@ public final class GuildListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
-        String message = "Unfortunately, " + event.getUser().getAsMention() + " left from the server";
+        String message = "Unfortunately, " + event.getUser().getAsTag() + " left from the server";
 
         preferablySendMessageToBotSpamChannel(event.getGuild(), message);
     }

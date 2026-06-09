@@ -1,4 +1,4 @@
-package github.pityamskoy.musicbot;
+package group.sam;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
